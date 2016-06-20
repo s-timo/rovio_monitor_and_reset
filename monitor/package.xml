@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>rovio_monitor</name>
+  <version>0.7.0</version>
+  <description>
+    Package that monitor the ROVIO Framework. It initialize a reset if ROVIO attemp to diverge. This package is planned to be used on the submersible Robot SCUBO.
+  </description>
+  <maintainer email="retob@student.ethz.ch">Reto Bischoff</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://www.scubo.ch</url>
+  <url type="bugtracker">to be done</url>
+  <url type="repository">to be done</url>
+  <author>Reto Bischoff</author>
+
+  <buildtool_depend version_gte="0.5.68">catkin</buildtool_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>rostest</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <run_depend>message_runtime</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+</package>
