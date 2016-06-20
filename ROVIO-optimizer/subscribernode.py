@@ -5,18 +5,18 @@ import math
 from nav_msgs.msg import Odometry
 
 
-def odometryCb(msg):
+def odometryCb(msg): #saving the last position
     #print msg.pose.pose
     global zwpose
     zwpose=msg.pose.pose
    
 
 if __name__ == "__main__":
-    rospy.init_node('oodometry', anonymous=True) #make node 
+    rospy.init_node('oodometry', anonymous=True) #prepare node 
     savepose=rospy.Subscriber('rovio/odometry',Odometry,odometryCb)
     rospy.spin()
 print("Last Pose")
-pose_x =zwpose.position.x
+pose_x =zwpose.position.x #print last position
 pose_y =zwpose.position.y
 pose_z =zwpose.position.z
 error=pose_x*pose_x+pose_y*pose_y+pose_z*pose_z
