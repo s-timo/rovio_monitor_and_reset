@@ -34,6 +34,7 @@ def odometryCb(msg):
 
  	if initalizing:
  		initialoffset[i]= rospy.get_time()-msg.header.stamp.to_sec() #initializing the offset between Headertimestamp and now
+ 		lastdelta[i]=0#damit Fehler nicht weitervererbt werden
  		if i==19:
  			initialoffset.sort()
  			offset=initialoffset[10] #median of all meassured offsets
@@ -42,7 +43,7 @@ def odometryCb(msg):
  			#print "Initalzing of Monitor finished"
 
  	else:
-	 	deltatime=rospy.get_time()-msg.header.stamp.to_sec()- offset-lastdelta[i+1]%20 #time between header timestamp and now, upcounting corigated
+	 	deltatime=rospy.get_time()-msg.header.stamp.to_sec()- offset#lastdelta[i+1]%20 #time between header timestamp and now, upcounting corigated
 	 
 	 	deriv=deltatime-lastdelta[i] #time in [s] with which the delay increase
 
@@ -60,7 +61,7 @@ def odometryCb(msg):
 	 		else:
 	 			hysterese=0
 	 	if hysterese > 2: #min 3 mal muss Indikator anspringen bis ausgeloest wird, hysteresemethode muss angepasst werden
-	 		reset("delay",zwpose[i])#reset call, with value before 20 times (1 second)
+	 		#reset("delay",zwpose[i])#reset call, with value before 20 times (1 second)
 	 		hysterese=0
 
 	 	lastdelta[(i+1)%20]=deltatime #save old delay value
