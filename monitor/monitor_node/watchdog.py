@@ -113,7 +113,7 @@ if __name__ == "__main__": #entry
 	initialoffset=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 	hysterese=0
 	i=0
-	lastdelta=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	lastdelta=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 	maxspeed=0
 	initalizing=True
 
