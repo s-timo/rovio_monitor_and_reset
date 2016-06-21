@@ -1,9 +1,10 @@
+#program um die parameter von ROVIO anzupassen
 import os
 import subprocess
 import pexpect
 import time
 
-naming=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+naming=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18] #initialize variables,
 naming[0]="pos_0 "
 naming[1]="pos_1 "
 naming[2]="pos_2 "

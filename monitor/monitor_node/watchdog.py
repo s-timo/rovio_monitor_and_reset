@@ -7,7 +7,7 @@ from geometry_msgs import *
 
 from rovio_monitor.srv import *
 
-global lastdelta 	# last difference between header-timestamp and now
+global lastdelta 	# last difference between header-timestamp and now array, everytime one count ahead
 global maxspeed		#nice to know
 global initialoffset #array to find median of offset
 global offset 		#offset between Header timestamp and now
@@ -37,14 +37,15 @@ def odometryCb(msg):
  		if i==19:
  			initialoffset.sort()
  			offset=initialoffset[10] #median of all meassured offsets
- 			lastdelta=rospy.get_time()-msg.header.stamp.to_sec()- offset
+ 			lastdelta[0]=rospy.get_time()-msg.header.stamp.to_sec()- offset
  			initalizing=False
  			#print "Initalzing of Monitor finished"
 
  	else:
-	 	deltatime=rospy.get_time()-msg.header.stamp.to_sec()- offset #time between header timestamp and now
+	 	deltatime=rospy.get_time()-msg.header.stamp.to_sec()- offset-lastdelta[i+1]%20 #time between header timestamp and now, upcounting corigated
 	 
-	 	deriv=deltatime-lastdelta #time in [s] with which the delay increase
+	 	deriv=deltatime-lastdelta[i] #time in [s] with which the delay increase
+
 	 	
 	 	print deltatime 
 	 	#print deriv
@@ -62,7 +63,7 @@ def odometryCb(msg):
 	 		reset("delay",zwpose[i])#reset call, with value before 20 times (1 second)
 	 		hysterese=0
 
-	 	lastdelta=deltatime #save old delay value
+	 	lastdelta[(i+1)%20]=deltatime #save old delay value
 		#lastmsg=msg.header.stamp.to_sec() #save old headertime. Spacing between the messages are randomly distributed, that's why this mehtode isn't in use
 
 		#Auslesen des Aktuellen absoluten speed
@@ -112,7 +113,7 @@ if __name__ == "__main__": #entry
 	initialoffset=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 	hysterese=0
 	i=0
-	lastdelta=0
+	lastdelta=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	maxspeed=0
 	initalizing=True
 

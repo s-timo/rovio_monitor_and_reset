@@ -1,4 +1,4 @@
-import math
+bimport math
 '''
 zahl = 0.00006162
 magnitude=0
